@@ -5,8 +5,13 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
+const db = require('./models');
+
+dotenv.config();
 const app = express();
+db.sequelize.sync();
 
 app.use('/', (req, res) => {
   res.send('Hello world!');

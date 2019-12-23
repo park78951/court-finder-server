@@ -6,7 +6,6 @@ const db = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 db.Court = require('./court')(sequelize, Sequelize);
-db.Rating = require('./rating')(sequelize, Sequelize);
 db.Review = require('./review')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 

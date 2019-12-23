@@ -1,7 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Court = sequelize.define('Court', {
-    id: {
-      primaryKey: true,
+    courtKey: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       allowNull: false,
@@ -27,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(10),
       allowNull: true,
     },
-    gu_nm: {
+    guName: {
       type: DataTypes.STRING(10),
       allowNull: true,
     },
@@ -39,12 +38,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    in_out: {
+    inOut: {
       type: DataTypes.STRING(2),
-      allowNull: true,
-    },
-    web: {
-      type: DataTypes.STRING,
       allowNull: true,
     },
     web: {
@@ -57,7 +52,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Court.associate = (db) => {
-    
+    db.Court.hasMany(db.Review, { as: 'ReviewedAt' });
+    db.Court.belongsTo(db.User);
   };
 
   return Court;
