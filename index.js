@@ -13,6 +13,27 @@ dotenv.config();
 const app = express();
 db.sequelize.sync();
 
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(expressSession({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+  name: 'rnbck'
+}));
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 app.use('/', (req, res) => {
   res.send('Hello world!');
 });
